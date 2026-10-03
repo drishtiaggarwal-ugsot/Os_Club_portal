@@ -66,6 +66,7 @@ export default function ManageSession() {
   if (!session) return <Notice tone="error">{error}</Notice>
 
   const needsLink = session.mode !== 'in_person'
+  const inviteVerb = session.invites_sent_at ? 'Resend' : 'Send'
 
   return (
     <section className="page">
@@ -119,7 +120,7 @@ export default function ManageSession() {
           >
             {busy === 'invites'
               ? 'Sending…'
-              : `Send invites to ${attendees.length} ${attendees.length === 1 ? 'person' : 'people'}`}
+              : `${inviteVerb} invites to ${attendees.length} ${attendees.length === 1 ? 'person' : 'people'}`}
           </button>
         </div>
 
