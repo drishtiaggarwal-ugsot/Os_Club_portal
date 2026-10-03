@@ -1,5 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/auth.js'
+import ThemeToggle from './ThemeToggle.jsx'
 
 export default function Header() {
   const { user, logout } = useAuth()
@@ -35,6 +36,7 @@ export default function Header() {
               <Link to="/register" className="button button--small">Join the club</Link>
             </>
           )}
+          <ThemeToggle />
         </nav>
       </div>
     </header>
