@@ -12,8 +12,8 @@ export default function Contributors() {
     <section className="page">
       <h1>Contributors</h1>
       <p className="muted">
-        Everyone who has merged a pull request into this project. Want to be here? Add a file to{' '}
-        <code>frontend/src/contributors/</code> and open a pull request.
+        Those who have merged a pull request into this project may want to be here. So just add a file to{' '}
+        <code>frontend/src/contributors/</code> and open a pull request and you will be added to this list. 
       </p>
 
       <ul className="contributors">
