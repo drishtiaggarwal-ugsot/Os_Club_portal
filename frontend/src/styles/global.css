@@ -16,6 +16,7 @@
   --going-soft: #e6f4ea;
   --danger: #b42318;
   --danger-soft: #fdecea;
+  --input-border: #b9bfcf;
 
   --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
@@ -30,6 +31,61 @@
   --radius: 6px;
   --measure: 68ch;
   --page: 64rem;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #0d1117;
+    --surface: #161b22;
+    --ink: #e6edf3;
+    --muted: #8b949e;
+    --line: #30363d;
+    --merged: #8957e5;
+    --merged-strong: #a371f7;
+    --merged-soft: #271f40;
+    --going: #2ea043;
+    --going-soft: #173426;
+    --danger: #f85149;
+    --danger-soft: #3c1e22;
+    --input-border: #30363d;
+    color-scheme: dark;
+  }
+}
+
+[data-theme='dark'] {
+  --paper: #0d1117;
+  --surface: #161b22;
+  --ink: #e6edf3;
+  --muted: #8b949e;
+  --line: #30363d;
+  --merged: #8957e5;
+  --merged-strong: #a371f7;
+  --merged-soft: #271f40;
+  --going: #2ea043;
+  --going-soft: #173426;
+  --danger: #f85149;
+  --danger-soft: #3c1e22;
+  --input-border: #30363d;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --paper: #f5f6fa;
+  --surface: #ffffff;
+  --ink: #18213b;
+  --muted: #5b6378;
+  --line: #d9dce6;
+  --merged: #6639ba;
+  --merged-strong: #4f2a99;
+  --merged-soft: #efe9fb;
+  --going: #1a7f37;
+  --going-soft: #e6f4ea;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --input-border: #b9bfcf;
+  color-scheme: light;
 }
 
 *,
@@ -49,6 +105,7 @@ body {
   font-family: var(--font-body);
   font-size: var(--step-0);
   line-height: 1.6;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 h1,
@@ -217,6 +274,37 @@ a:hover {
   color: var(--muted);
 }
 
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  margin-left: 0.25rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--merged-soft);
+  border-color: var(--merged);
+  color: var(--merged);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.theme-toggle svg {
+  display: block;
+}
+
 .footer {
   border-top: 1px solid var(--line);
   padding: 1.5rem 1.25rem;
@@ -340,7 +428,7 @@ a:hover {
 
 .segmented button[aria-pressed='true'] {
   background: var(--ink);
-  color: #fff;
+  color: var(--surface);
 }
 
 /* ---------- Timeline: sessions as a commit history ---------- */
@@ -522,7 +610,7 @@ textarea {
   font-weight: 400;
   color: var(--ink);
   background: var(--surface);
-  border: 1px solid #b9bfcf;
+  border: 1px solid var(--input-border, var(--line));
   border-radius: var(--radius);
   padding: 0.6rem 0.75rem;
   width: 100%;
