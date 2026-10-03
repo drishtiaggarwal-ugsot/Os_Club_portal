@@ -119,7 +119,7 @@ export default function ManageSession() {
           >
             {busy === 'invites'
               ? 'Sending…'
-              : `Send invites to ${attendees.length} ${attendees.length === 1 ? 'person' : 'people'}`}
+              : `${session.invites_sent_at ? 'Resend' : 'Send'} invites to ${attendees.length} ${attendees.length === 1 ? 'person' : 'people'}`}
           </button>
         </div>
 
