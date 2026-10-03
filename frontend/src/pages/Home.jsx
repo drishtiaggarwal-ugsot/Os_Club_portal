@@ -33,7 +33,7 @@ export default function Home() {
         <h1 className="hero__title">Learn open source by shipping it.</h1>
         <p className="hero__lede">
           Talks, workshops and hack nights run by students who contribtue to real projects. Register for a
-          session and we'll send the details and the meeting link to your inbox.
+          session and we'll send the details and the meeting link to your inbox directly.
         </p>
         {!user && (
           <div className="hero__actions">
