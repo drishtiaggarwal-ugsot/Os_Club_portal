@@ -10,6 +10,7 @@ export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const update = (event) => setForm({ ...form, [event.target.name]: event.target.value })
 
@@ -40,12 +41,20 @@ export default function Login() {
           Password
           <input
             name="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             autoComplete="current-password"
             value={form.password}
             onChange={update}
             required
           />
+        </label>
+        <label className="choice">
+          <input
+            type="checkbox"
+            checked={showPassword}
+            onChange={(event) => setShowPassword(event.target.checked)}
+          />
+          Show password
         </label>
         <button type="submit" className="button" disabled={busy}>
           {busy ? 'Logging in…' : 'Log in'}

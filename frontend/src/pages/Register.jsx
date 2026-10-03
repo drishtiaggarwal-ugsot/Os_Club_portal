@@ -10,6 +10,7 @@ export default function Register() {
   const [errors, setErrors] = useState({})
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const update = (event) => setForm({ ...form, [event.target.name]: event.target.value })
 
@@ -54,7 +55,7 @@ export default function Register() {
           Password
           <input
             name="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             autoComplete="new-password"
             value={form.password}
             onChange={update}
@@ -62,6 +63,14 @@ export default function Register() {
           />
           <span className="hint">At least 8 characters. Avoid common passwords.</span>
           {errors.password && <span className="field-error">{errors.password}</span>}
+        </label>
+        <label className="choice">
+          <input
+            type="checkbox"
+            checked={showPassword}
+            onChange={(event) => setShowPassword(event.target.checked)}
+          />
+          Show password
         </label>
         <button type="submit" className="button" disabled={busy}>
           {busy ? 'Creating account…' : 'Create account'}
