@@ -1,5 +1,6 @@
 // Validates contributor files so mistakes are caught in CI, not in review.
 // Run with: npm run check:contributors
+// Thanks Dhrishti Mam, raising my first PR
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
