@@ -31,9 +31,9 @@ No issue needed. Copy `frontend/src/contributors/_template.json` to `frontend/sr
 ### 1. Set up your fork (once)
 
 ```bash
-git clone https://github.com/<your-username>/oss-club-portal.git
-cd oss-club-portal
-git remote add upstream https://github.com/<club-org>/oss-club-portal.git
+git clone https://github.com/<your-username>/os-club-portal.git
+cd os-club-portal
+git remote add upstream https://github.com/<club-org>/os-club-portal.git
 ```
 
 ### 2. Start every piece of work from an updated main
