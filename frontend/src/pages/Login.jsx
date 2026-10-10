@@ -52,7 +52,7 @@ export default function Login() {
         </button>
       </form>
       <p className="form-footer">
-        New here? <Link to="/register">Create an account</Link>
+        New here? <Link to="/register" state={{ from: location.state?.from }}>Create an account</Link>
       </p>
     </section>
   )
