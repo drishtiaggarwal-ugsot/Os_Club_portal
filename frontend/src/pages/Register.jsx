@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/auth.js'
 import Notice from '../components/Notice.jsx'
 
 export default function Register() {
   const { register } = useAuth()
+  const location = useLocation()
   const navigate = useNavigate()
   const [form, setForm] = useState({ first_name: '', last_name: '', email: '', password: '' })
   const [errors, setErrors] = useState({})
@@ -20,7 +21,7 @@ export default function Register() {
     setErrors({})
     try {
       await register(form)
-      navigate('/')
+      navigate(location.state?.from || '/', { replace: true })
     } catch (err) {
       setErrors(err.fields || {})
       setError(err.message)
