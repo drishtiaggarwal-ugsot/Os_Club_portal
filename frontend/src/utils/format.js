@@ -9,6 +9,25 @@ const timeFormatter = new Intl.DateTimeFormat('en-IN', { hour: 'numeric', minute
 
 export const formatDay = (iso) => dayFormatter.format(new Date(iso))
 export const formatLongDay = (iso) => longDayFormatter.format(new Date(iso))
+
+const relativeTimeFormatter = new Intl.RelativeTimeFormat('en-IN', { numeric: 'auto' })
+
+const startOfDay = (date) => {
+  const day = new Date(date)
+  day.setHours(0, 0, 0, 0)
+  return day
+}
+
+// "today", "tomorrow", "yesterday", "in 5 days", "5 days ago".
+// Compares calendar days in local time, so a session at 00:30 reads as
+// tomorrow even when the user opens the page at 23:30.
+export const formatRelativeDate = (iso) => {
+  const target = startOfDay(new Date(iso))
+  if (Number.isNaN(target.getTime())) return ''
+  const today = startOfDay(new Date())
+  const days = Math.round((target - today) / 86400000)
+  return relativeTimeFormatter.format(days, 'day')
+}
 export const formatTime = (iso) => timeFormatter.format(new Date(iso))
 export const formatTimeRange = (start, end) => `${formatTime(start)} to ${formatTime(end)}`
 

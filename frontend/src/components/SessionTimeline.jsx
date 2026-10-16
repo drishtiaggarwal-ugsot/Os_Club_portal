@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { formatDay, formatTimeRange, MODE_LABELS, seatsLabel } from '../utils/format.js'
+import { formatDay, formatRelativeDate, formatTimeRange, MODE_LABELS, seatsLabel } from '../utils/format.js'
 
 /**
  * Sessions drawn as a commit history: one line, one node per session.
@@ -12,7 +12,10 @@ export default function SessionTimeline({ sessions }) {
         <li key={session.id} className={`timeline__item${session.has_rsvped ? ' is-going' : ''}`}>
           <span className="timeline__node" aria-hidden="true" />
           <div className="timeline__when">
-            <span className="timeline__day">{formatDay(session.starts_at)}</span>
+            <span className="timeline__day">
+              {formatDay(session.starts_at)}
+              <span className="timeline__relative"> · {formatRelativeDate(session.starts_at)}</span>
+            </span>
             <span className="timeline__time">{formatTimeRange(session.starts_at, session.starts_at)}</span>
           </div>
           <div className="timeline__body">
