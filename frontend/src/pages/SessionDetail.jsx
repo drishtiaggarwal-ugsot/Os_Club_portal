@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import { api } from '../api/client.js'
+import { api, ApiError } from '../api/client.js'
 import { useAuth } from '../context/auth.js'
 import Loading from '../components/Loading.jsx'
 import Notice from '../components/Notice.jsx'
@@ -12,12 +12,19 @@ export default function SessionDetail() {
   const location = useLocation()
   const [session, setSession] = useState(null)
   const [error, setError] = useState('')
+  const [notFound, setNotFound] = useState(false)
   const [message, setMessage] = useState('')
   const [busy, setBusy] = useState(false)
   const [now] = useState(() => Date.now())
 
   useEffect(() => {
-    api.getSession(id).then(setSession).catch((err) => setError(err.message))
+    api
+      .getSession(id)
+      .then(setSession)
+      .catch((err) => {
+        if (err instanceof ApiError && err.status === 404) setNotFound(true)
+        setError(err.message)
+      })
   }, [id, user])
 
   const isPast = session && new Date(session.ends_at).getTime() < now
@@ -43,6 +50,14 @@ export default function SessionDetail() {
   }
 
   if (!session && !error) return <Loading label="Loading session" />
+  if (!session && notFound) {
+    return (
+      <section className="page page--narrow">
+        <h1>This session doesn't exist or was deleted</h1>
+        <Link to="/" className="button">Back to all sessions</Link>
+      </section>
+    )
+  }
   if (!session) {
     return (
       <section className="page page--narrow">
