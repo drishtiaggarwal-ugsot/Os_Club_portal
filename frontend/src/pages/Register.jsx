@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/auth.js'
 import Notice from '../components/Notice.jsx'
+import { usePageTitle } from '../utils/usePageTitle.js'
 
 export default function Register() {
+  usePageTitle('Join the club')
   const { register } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState({ first_name: '', last_name: '', email: '', password: '' })

@@ -4,6 +4,7 @@ import { api } from '../../api/client.js'
 import Loading from '../../components/Loading.jsx'
 import Notice from '../../components/Notice.jsx'
 import { fromLocalInputValue, toLocalInputValue } from '../../utils/format.js'
+import { usePageTitle } from '../../utils/usePageTitle.js'
 
 const EMPTY = {
   title: '',
@@ -18,6 +19,7 @@ const EMPTY = {
 export default function SessionEditor() {
   const { id } = useParams()
   const isEditing = Boolean(id)
+  usePageTitle(isEditing ? 'Edit session' : 'New session')
   const navigate = useNavigate()
   const [form, setForm] = useState(isEditing ? null : EMPTY)
   const [errors, setErrors] = useState({})

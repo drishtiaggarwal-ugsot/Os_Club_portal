@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/auth.js'
 import Notice from '../components/Notice.jsx'
+import { usePageTitle } from '../utils/usePageTitle.js'
 
 export default function Login() {
+  usePageTitle('Log in')
   const { login } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()

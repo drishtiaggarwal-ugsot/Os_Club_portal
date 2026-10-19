@@ -5,12 +5,15 @@ import { useAuth } from '../context/auth.js'
 import SessionTimeline from '../components/SessionTimeline.jsx'
 import Loading from '../components/Loading.jsx'
 import Notice from '../components/Notice.jsx'
+import { usePageTitle } from '../utils/usePageTitle.js'
 
 export default function Home() {
   const { user } = useAuth()
   const [when, setWhen] = useState('upcoming')
   const [result, setResult] = useState({ key: null, sessions: null, error: '' })
   const key = `${when}:${user?.id ?? 'guest'}`
+
+  usePageTitle(when === 'past' ? 'Past sessions' : 'Upcoming sessions')
 
   useEffect(() => {
     let active = true

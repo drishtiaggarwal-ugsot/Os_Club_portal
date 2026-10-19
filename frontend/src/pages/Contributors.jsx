@@ -1,3 +1,5 @@
+import { usePageTitle } from '../utils/usePageTitle.js'
+
 // Vite reads every JSON file in src/contributors at build time.
 const files = import.meta.glob('../contributors/*.json', { eager: true, import: 'default' })
 
@@ -8,6 +10,7 @@ const contributors = Object.entries(files)
   .sort((a, b) => a.name.localeCompare(b.name))
 
 export default function Contributors() {
+  usePageTitle('Contributors')
   return (
     <section className="page">
       <h1>Contributors</h1>

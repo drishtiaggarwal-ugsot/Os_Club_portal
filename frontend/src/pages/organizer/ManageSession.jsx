@@ -4,6 +4,7 @@ import { api } from '../../api/client.js'
 import Loading from '../../components/Loading.jsx'
 import Notice from '../../components/Notice.jsx'
 import { formatLongDay, formatTimeRange, MODE_LABELS } from '../../utils/format.js'
+import { usePageTitle } from '../../utils/usePageTitle.js'
 
 export default function ManageSession() {
   const { id } = useParams()
@@ -13,6 +14,8 @@ export default function ManageSession() {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [busy, setBusy] = useState('')
+
+  usePageTitle(session ? `Manage · ${session.title}` : 'Manage session')
 
   useEffect(() => {
     let active = true

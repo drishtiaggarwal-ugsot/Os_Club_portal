@@ -4,8 +4,10 @@ import { api } from '../../api/client.js'
 import Loading from '../../components/Loading.jsx'
 import Notice from '../../components/Notice.jsx'
 import { formatDay, formatTime, MODE_LABELS } from '../../utils/format.js'
+import { usePageTitle } from '../../utils/usePageTitle.js'
 
 export default function Dashboard() {
+  usePageTitle('Organize')
   const [sessions, setSessions] = useState(null)
   const [error, setError] = useState('')
 

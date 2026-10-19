@@ -5,6 +5,7 @@ import { useAuth } from '../context/auth.js'
 import Loading from '../components/Loading.jsx'
 import Notice from '../components/Notice.jsx'
 import { formatLongDay, formatTimeRange, MODE_LABELS, seatsLabel } from '../utils/format.js'
+import { usePageTitle } from '../utils/usePageTitle.js'
 
 export default function SessionDetail() {
   const { id } = useParams()
@@ -15,6 +16,8 @@ export default function SessionDetail() {
   const [message, setMessage] = useState('')
   const [busy, setBusy] = useState(false)
   const [now] = useState(() => Date.now())
+
+  usePageTitle(session ? session.title : 'Session')
 
   useEffect(() => {
     api.getSession(id).then(setSession).catch((err) => setError(err.message))
