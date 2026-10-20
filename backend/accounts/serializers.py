@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, get_user_model
+from django.conf import settings
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
@@ -23,6 +24,11 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def validate_email(self, value):
         value = value.lower()
+        allowed = [d.lower() for d in getattr(settings, "ALLOWED_EMAIL_DOMAINS", [])]
+        if allowed and value.rsplit("@", 1)[-1] not in allowed:
+            raise serializers.ValidationError(
+                "Registration is restricted to these email domains: " + ", ".join(allowed) + "."
+            )
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("An account with this email already exists.")
         return value

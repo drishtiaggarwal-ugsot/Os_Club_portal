@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.test import override_settings
 from django.urls import reverse
 from rest_framework.test import APIClient, APITestCase
 
@@ -48,3 +49,27 @@ class AuthTests(APITestCase):
             HTTP_ORIGIN="http://localhost:5173",
         )
         self.assertEqual(response.status_code, 200)
+
+    @override_settings(ALLOWED_EMAIL_DOMAINS=["college.edu"])
+    def test_register_rejects_non_whitelisted_domain(self):
+        response = self.client.post(
+            reverse("register"),
+            {"email": "asha@gmail.com", "first_name": "Asha", "password": "a-strong-pass-123"},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertFalse(User.objects.filter(email="asha@gmail.com").exists())
+
+    @override_settings(ALLOWED_EMAIL_DOMAINS=["college.edu"])
+    def test_register_accepts_whitelisted_domain(self):
+        response = self.client.post(
+            reverse("register"),
+            {"email": "asha@college.edu", "first_name": "Asha", "password": "a-strong-pass-123"},
+        )
+        self.assertEqual(response.status_code, 201)
+
+    def test_register_accepts_any_domain_when_no_whitelist(self):
+        response = self.client.post(
+            reverse("register"),
+            {"email": "asha@gmail.com", "first_name": "Asha", "password": "a-strong-pass-123"},
+        )
+        self.assertEqual(response.status_code, 201)

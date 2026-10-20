@@ -25,6 +25,10 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-only-insecure-secret-key")
 DEBUG = env_bool("DJANGO_DEBUG", True)
 ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
 
+# Optional: restrict registration to these email domains (comma-separated).
+# Empty (default) = any email domain may register.
+ALLOWED_EMAIL_DOMAINS = env_list("ALLOWED_EMAIL_DOMAINS")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
