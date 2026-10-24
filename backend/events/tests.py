@@ -46,6 +46,14 @@ class EventAPITests(APITestCase):
         response = self.client.get("/api/sessions/?when=upcoming")
         self.assertEqual([e["title"] for e in response.data], ["Intro to Open Source"])
 
+    def test_past_sessions_newest_first(self):
+        last_month = timezone.now() - timedelta(days=30)
+        last_week = timezone.now() - timedelta(days=7)
+        Event.objects.create(title="Last month", starts_at=last_month, ends_at=last_month + timedelta(hours=1))
+        Event.objects.create(title="Last week", starts_at=last_week, ends_at=last_week + timedelta(hours=1))
+        response = self.client.get("/api/sessions/?when=past")
+        self.assertEqual([e["title"] for e in response.data], ["Last week", "Last month"])
+
     def test_meet_link_hidden_from_non_attendees(self):
         self.event.meet_link = "https://meet.example.com/mock/abc"
         self.event.save()
